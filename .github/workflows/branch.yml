@@ -6,18 +6,30 @@ on:
       - main
       - master
 
+  pull_request:
+    branches:
+      - main
+      - master
+
 jobs:
   echo-main-branch:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Echo Hello
         run: echo "Hello, world!"
 
   echo-master-branch:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Echo master branch
         run: echo "Hello, master branch!"
+
+  echo-pull-request:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Echo Pull Request
+        run: echo "This is a pull request event!" 
         
