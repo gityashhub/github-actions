@@ -2,10 +2,22 @@ name: Echo on push
 
 on:
   push:
+    branches:
+      - main
+      - master
 
 jobs:
-  echo:
+  echo-main-branch:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Echo Hello
         run: echo "Hello, world!"
+
+  echo-master-branch:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Echo master branch
+        run: echo "Hello, master branch!"
+        
