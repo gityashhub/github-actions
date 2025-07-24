@@ -12,6 +12,10 @@ on:
       - master
     types:
         - closed
+        - opened
+
+  schedule:
+    - cron: '10 13 * * *' # Every day at 13:09 UTC
 
   workflow_dispatch:
 
@@ -37,6 +41,13 @@ jobs:
       - name: Echo Pull Request
         run: echo "This is a pull request event!"
         
+  echo-pull-request-opened:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    steps:
+      - name: Echo Pull Request Opened
+        run: echo "This is a pull request opened event executed!"
+
   echo-pull-request-closed:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -50,3 +61,10 @@ jobs:
     steps:
         - name: Echo workflow_dispatch
           run: echo "This is a workflow_dispatch event!"
+
+  echo-scheduled:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - name: Echo Scheduled Event
+        run: echo "This is a scheduled event!"
