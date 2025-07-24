@@ -43,7 +43,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'opened'
     steps:
       - name: Echo Pull Request Opened
-        run: echo "This is a pull request opened event!"
+        run: echo "This is a pull request opened event executed!"
 
   echo-pull-request-closed:
     runs-on: ubuntu-latest
