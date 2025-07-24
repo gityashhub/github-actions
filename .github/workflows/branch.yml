@@ -14,6 +14,9 @@ on:
         - closed
         - opened
 
+  schedule:
+    - cron: '10 13 * * *' # Every day at 13:09 UTC
+
   workflow_dispatch:
 
 jobs:
@@ -58,3 +61,10 @@ jobs:
     steps:
         - name: Echo workflow_dispatch
           run: echo "This is a workflow_dispatch event!"
+
+  echo-scheduled:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - name: Echo Scheduled Event
+        run: echo "This is a scheduled event!"
