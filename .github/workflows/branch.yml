@@ -10,6 +10,8 @@ on:
     branches:
       - main
       - master
+    types:
+        - closed
 
   workflow_dispatch:
 
@@ -33,7 +35,14 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - name: Echo Pull Request
-        run: echo "This is a pull request event!" 
+        run: echo "This is a pull request event!"
+        
+  echo-pull-request-closed:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    steps:
+      - name: Echo Pull Request
+        run: echo "This is a pull request event!"      
   
   echo-workflow-dispatch:
     runs-on: ubuntu-latest
