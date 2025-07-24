@@ -12,6 +12,7 @@ on:
       - master
     types:
         - closed
+        - opened
 
   workflow_dispatch:
 
@@ -37,6 +38,13 @@ jobs:
       - name: Echo Pull Request
         run: echo "This is a pull request event!"
         
+  echo-pull-request-opened:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    steps:
+      - name: Echo Pull Request Opened
+        run: echo "This is a pull request opened event!"
+
   echo-pull-request-closed:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
